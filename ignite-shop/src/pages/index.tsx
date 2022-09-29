@@ -3,7 +3,7 @@ import { styled } from "../styles"
 // primeiro parametro -> tipo da tag
 //estruturação igual js entao nomeclatura sem -_ só Maiusculo
 const Button = styled('button', {
-  backgroundColor: '$rocketseat',
+  backgroundColor: '$green300',
   borderRadius: 4,
   border: 0,
   padding: '4px 8px',
