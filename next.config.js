@@ -4,6 +4,9 @@ const nextConfig = {
     optimizeCss: true, // enabling this will enable SSR for Tailwind
   },
 
+  images: {
+    domains: ['files.stripe.com']
+  },
   reactStrictMode: true,
 }
 
