@@ -58,10 +58,6 @@ export function Modal({ closeModal }: IModal) {
           {
           productsInCart.length > 0 ? 
             productsInCart.map(product => {
-              price = String(product.price)
-              price = price.substring(3)
-              console.log(7 + Number(price))
-
               return (
                 <BodyProduct key={product.id}>
               <Image src={product.imageUrl} width={101} height={93} alt="" ></Image>
