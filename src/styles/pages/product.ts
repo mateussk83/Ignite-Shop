@@ -12,6 +12,7 @@ export const ProductContainer = styled('main', {
 })
 
 export const ImageContainer = styled('div', {
+  
  width: '100% ',
  maxWidth: 576,
  height: 626,
@@ -62,7 +63,12 @@ export const ProductDetails = styled('div', {
   cursor: 'pointer',
   fontSize: '$md',
 
-  '&:hover': {
+  '&:disabled': {
+    opacity: 0.6,
+    cursor: 'not-allowed'
+  },
+
+  '&:not(:disabled):hover': {
    backgroundColor: '$green300',
    transition: 'all 0.3s',
   }

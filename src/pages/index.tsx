@@ -1,13 +1,17 @@
-import Image from "next/image"
-import Link from 'next/link'
+import Image from "next/image";
+import Link from "next/link";
+import Head from "next/head";
 
-import { useKeenSlider } from 'keen-slider/react'
+import { useKeenSlider } from "keen-slider/react";
 
-import { HomeContainer, Product } from "../styles/pages/home"
+import { HomeContainer, Product } from "../styles/pages/home";
 
-import { stripe } from "../lib/stripe"
-import { GetStaticProps } from "next"
-import Stripe from "stripe"
+import { stripe } from "../lib/stripe";
+import { GetStaticProps } from "next";
+import Stripe from "stripe";
+import { Handbag } from "phosphor-react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface IProduct {
   id: string;
@@ -17,46 +21,91 @@ interface IProduct {
 }
 
 interface HomeProps {
-  products: IProduct[
-
-  ]
+  products: IProduct[];
 }
 
 export default function Home({ products }: HomeProps) {
+  const [ isCreatingproductInCart, setIsCreatingproductInCart] = useState(false);
+
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3,
-      spacing: 48
+      spacing: 48,
+    },
+  });
+  async function handleAddProductInCart({
+    id,
+    imageUrl,
+    title,
+    price,
+  }: IProduct) {
+    try {
+      setIsCreatingproductInCart(true);
+
+      await axios.post("/api/cart", {
+        id: id,
+        imageUrl: imageUrl,
+        title: title,
+        price: price,
+      });
+    } catch (err) {
+      //conectar com alguma ferramenta de observabilidade (Datadog/ Sent)
+      setIsCreatingproductInCart(false);
+
+      alert("Falha ao redirecionar ao checkout!");
     }
-  })
+  }
 
   return (
-    <HomeContainer ref={sliderRef} className="keen-slider">
-      {products.map(product => {
-        return (
-          <Link href={`/product/${product.id}`} key={product.id} prefetch={false}>
-          <Product className="keen-slider__slide">
-            <Image src={product.imageUrl} width={520} height={480} alt="" />
-            <footer>
-              <strong>{product.title}</strong>
-              <span>{product.price}</span>
-            </footer>
-          </Product>
-          </Link>
-        )
-      })}
+    <>
+      <Head>
+        <title>Ignite Shop</title>
+      </Head>
 
+      <HomeContainer ref={sliderRef} className="keen-slider">
+        {products.map((product) => {
+          return (
 
-      ,                  </HomeContainer>
-  )
+            <Product className="keen-slider__slide">
+              <Link
+                href={`/product/${product.id}`}
+                key={product.id}
+                prefetch={false}
+              >
+                <Image src={product.imageUrl} width={520} height={480} alt="" />
+
+              </Link>
+              <footer>
+                <div>
+                  <strong>{product.title}</strong>
+                  <span>{product.price}</span>
+                </div>
+                <button
+                  onClick={() => {
+                    handleAddProductInCart({
+                      id: product.id,
+                      title: product.title,
+                      imageUrl: product.imageUrl,
+                      price: product.price,
+                    });
+                  }}
+                >
+                  <Handbag size={32} weight="bold" color="#fff" />
+                </button>
+              </footer>
+            </Product>
+
+          );
+        })}
+      </HomeContainer>
+    </>
+  );
 }
-
-
 
 export const getStaticProps: GetStaticProps = async () => {
   const response = await stripe.products.list({
-    expand: ['data.default_price']
-  })
+    expand: ["data.default_price"],
+  });
 
   const products = response.data.map((product) => {
     const price = product.default_price as Stripe.Price;
@@ -64,16 +113,16 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       title: product.name,
       imageUrl: product.images[0],
-      price: new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      }).format(price.unit_amount as number / 100)
-  }})
-
+      price: new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format((price.unit_amount as number) / 100),
+    };
+  });
   return {
     props: {
       products,
     },
-    revalidate: 60 * 60 * 2
+    revalidate: 60 * 60 * 2,
   };
 };

@@ -7,7 +7,7 @@ const nextConfig = {
   images: {
     domains: ['files.stripe.com']
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
 }
 
 module.exports = nextConfig
