@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 interface IProduct {
-  id: string;
+  id_product: string;
   title: string;
   imageUrl: string;
   price: number;
@@ -11,17 +11,18 @@ const prisma = new PrismaClient();
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
-      const { id, title, imageUrl, price } = req.body;
+      const { id_product, title, imageUrl, price }:IProduct = req.body;
 
       const product = await prisma.product.create({
-        data: {        
-            id,
+        data: {     
+            id_product,
             title,
             imageUrl,
             price,
           },
         })
 
+        console.log(product)
       return res.status(201).json({ product });
     }
 

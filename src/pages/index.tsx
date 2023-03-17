@@ -42,12 +42,13 @@ export default function Home({ products }: HomeProps) {
     try {
       setIsCreatingproductInCart(true);
 
-      await axios.post("/api/cart", {
-        id: id,
+      const uai = await axios.post("/api/products", {
+        id_product: id,
         imageUrl: imageUrl,
         title: title,
         price: price,
       });
+      console.log(uai)
     } catch (err) {
       //conectar com alguma ferramenta de observabilidade (Datadog/ Sent)
       setIsCreatingproductInCart(false);
@@ -113,10 +114,7 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       title: product.name,
       imageUrl: product.images[0],
-      price: new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      }).format((price.unit_amount as number) / 100),
+      price: price.unit_amount
     };
   });
   return {

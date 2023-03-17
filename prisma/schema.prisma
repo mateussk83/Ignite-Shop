@@ -14,8 +14,9 @@ datasource db {
 }
 
 model Product {
-  id       String  @id
-  title    String
-  imageUrl String
-  price    Decimal
+  id             Int     @id @default(autoincrement())
+  product_stripe String
+  title          String
+  imageUrl       String
+  price          Decimal
 }

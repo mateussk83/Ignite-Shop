@@ -23,9 +23,10 @@ export function Modal({ closeModal }: IModal) {
   async function ProductsInCart() {
     try {
 
-      const response = await axios.get('/api/cart', {
+      const response = await axios.get('/api/products', {
       })
 
+      console.log(response)
 
       response.data.map((product:any) => {
         setProductsInCart(products => [...products, product])
