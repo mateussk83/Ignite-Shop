@@ -1,7 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
+
+
 interface IProduct {
-  id_product: string;
+  product_stripe: string;
   title: string;
   imageUrl: string;
   price: number;
@@ -11,16 +13,17 @@ const prisma = new PrismaClient();
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
-      const { id_product, title, imageUrl, price }:IProduct = req.body;
+      prisma.product
+      const { product_stripe, title, imageUrl, price }:IProduct = req.body;
 
       const product = await prisma.product.create({
-        data: {     
-            id_product,
-            title,
-            imageUrl,
-            price,
-          },
-        })
+        data: {
+          product_stripe,
+          title,
+          imageUrl,
+          price
+        }
+      })
 
         console.log(product)
       return res.status(201).json({ product });
@@ -32,7 +35,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   }
 
   else if(req.method === "DELETE") {
-    await prisma.product.deleteMany()
+    const { id } = req.body;
+
+    await prisma.product.delete(id)
 
     return res.status(200)
   }

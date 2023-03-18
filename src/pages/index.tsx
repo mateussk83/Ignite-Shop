@@ -43,12 +43,12 @@ export default function Home({ products }: HomeProps) {
       setIsCreatingproductInCart(true);
 
       const uai = await axios.post("/api/products", {
-        id_product: id,
+        product_stripe: id,
         imageUrl: imageUrl,
         title: title,
         price: price,
       });
-      console.log(uai)
+      
     } catch (err) {
       //conectar com alguma ferramenta de observabilidade (Datadog/ Sent)
       setIsCreatingproductInCart(false);

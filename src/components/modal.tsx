@@ -38,6 +38,21 @@ export function Modal({ closeModal }: IModal) {
     }
   }
 
+  async function HandleDeleteProduct(id:string) {
+    try {
+
+      await axios.delete('/api/products', {
+        data:
+          {
+            id
+          }
+      })
+    }
+    catch(err) {
+      return err
+    }
+  }
+
   useEffect(() => {
     ProductsInCart()
 
