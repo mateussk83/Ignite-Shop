@@ -48,7 +48,7 @@ export default function Home({ products }: HomeProps) {
         title: title,
         price: price,
       });
-      
+
     } catch (err) {
       //conectar com alguma ferramenta de observabilidade (Datadog/ Sent)
       setIsCreatingproductInCart(false);
@@ -79,7 +79,10 @@ export default function Home({ products }: HomeProps) {
               <footer>
                 <div>
                   <strong>{product.title}</strong>
-                  <span>{product.price}</span>
+                  <span>{new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format((product.price as number) / 100)}</span>
                 </div>
                 <button
                   onClick={() => {

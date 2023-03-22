@@ -9,7 +9,9 @@ interface IProduct {
   price: number;
 }
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  rejectOnNotFound: false,
+});
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
@@ -35,9 +37,19 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   }
 
   else if(req.method === "DELETE") {
-    const { id } = req.body;
 
-    await prisma.product.delete(id)
+    const { id }= req.body;
+
+    const productFind = await prisma.product.findFirst({where: {id : id}})
+
+    if(!productFind) {
+      return res.status(400).json({message: "User Not Found!"})
+    }
+
+    await prisma.product.delete({where: {id : id}})
+
+
+    // await prisma.product.(id)
 
     return res.status(200)
   }
