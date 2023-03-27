@@ -10,52 +10,26 @@ import { stripe } from "../lib/stripe";
 import { GetStaticProps } from "next";
 import Stripe from "stripe";
 import { Handbag } from "phosphor-react";
-import { useEffect, useState } from "react";
-import axios from "axios";
-
-interface IProduct {
-  id: string;
-  title: string;
-  imageUrl: string;
-  price: number;
-}
+import { useContext } from "react";
+import { CartContext, IProduct } from "../contexts/CartContext";
+import { useContextSelector } from "use-context-selector";
 
 interface HomeProps {
   products: IProduct[];
 }
 
 export default function Home({ products }: HomeProps) {
-  const [ isCreatingproductInCart, setIsCreatingproductInCart] = useState(false);
-
+  const createProducts = useContextSelector(CartContext, (context) => {
+    return context.createProducts
+  })
+  
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3,
       spacing: 48,
     },
   });
-  async function handleAddProductInCart({
-    id,
-    imageUrl,
-    title,
-    price,
-  }: IProduct) {
-    try {
-      setIsCreatingproductInCart(true);
-
-      const uai = await axios.post("/api/products", {
-        product_stripe: id,
-        imageUrl: imageUrl,
-        title: title,
-        price: price,
-      });
-
-    } catch (err) {
-      //conectar com alguma ferramenta de observabilidade (Datadog/ Sent)
-      setIsCreatingproductInCart(false);
-
-      alert("Falha ao redirecionar ao checkout!");
-    }
-  }
+  
 
   return (
     <>
@@ -67,7 +41,7 @@ export default function Home({ products }: HomeProps) {
         {products.map((product) => {
           return (
 
-            <Product className="keen-slider__slide">
+            <Product key={product.id} className="keen-slider__slide">
               <Link
                 href={`/product/${product.id}`}
                 key={product.id}
@@ -86,8 +60,8 @@ export default function Home({ products }: HomeProps) {
                 </div>
                 <button
                   onClick={() => {
-                    handleAddProductInCart({
-                      id: product.id,
+                    createProducts({
+                      idStripe: product.id,
                       title: product.title,
                       imageUrl: product.imageUrl,
                       price: product.price,
