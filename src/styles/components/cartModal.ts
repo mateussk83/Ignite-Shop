@@ -1,5 +1,6 @@
 import { styled } from "..";
 import * as Dialog from "@radix-ui/react-dialog";
+import Image from "next/image";
 
 export const Overlay = styled(Dialog.Overlay, {
   position: "fixed",
@@ -66,7 +67,7 @@ export const ContentProduct = styled("div", {
   },
 });
 
-export const ImageProduct = styled("a", {
+export const ImageProduct = styled(Image, {
   display: "flex",
   width: "101px",
   height: "93px",

@@ -1,57 +1,73 @@
-import { ReactNode, useCallback, useState } from "react"
-import { createContext } from "use-context-selector";
-import { api } from "../lib/axios";
+import { ReactNode, useState } from 'react'
+import { createContext } from 'use-context-selector'
+import { usePrice } from '../hooks/usePrice'
 
 
-export interface IProduct {
-  id?: number;
-  idStripe: string;
-  title: string;
-  imageUrl: string;
-  price: number;
-}
-
-interface ProductsProviderProps {
+interface CartContextProviderProps {
   children: ReactNode
 }
 
-interface ProductsContextType {
-  products: IProduct[],
-  createProducts: (data: IProduct) => Promise<void>
-
+export interface IProduct {
+  id: string
+  title: string
+  imageUrl: string
+  price: number
+  defaultPriceId: string
 }
 
-let count = 0
+interface ProductCartProps {
+  id: string
+  title: string
+  imageUrl: string
+  price: number
+  description?: string
+  defaultPriceId: string
+}
 
-export const CartContext = createContext({} as ProductsContextType)
+interface CartContextProps {
+  cartProducts: ProductCartProps[]
+  quantity: number
+  addProductsToCart: (shirt: ProductCartProps) => void
+  removeProductsFromCart: (id: string) => void
+  orderAlreadyExist: (id: string) => boolean
+}
 
-export function CartProvider({ children }: ProductsProviderProps) {
-  const [products, setProducts] = useState<IProduct[]>([])
+export const CartContext = createContext({} as CartContextProps)
 
-  const createProducts = useCallback(
-    async (data: IProduct) => {
-      count =+ 1
-      const product = {
-        id: count,
-        idStripe: data.idStripe,
-        imageUrl: data.imageUrl,
-        title: data.title,
-        price: data.price
-      } as IProduct
+export function CartContextProvider({ children }: CartContextProviderProps) {
+  const [cartProducts, setCartProducts] = useState<ProductCartProps[]>([])
 
-      setProducts((data) => [product, ...data])
-      console.log(products)
-    }, [])
+  const quantity = cartProducts.length
+
+  function addProductsToCart(shirt: ProductCartProps) {
+    setCartProducts((state) => [...state, shirt])
+  }
+
+  function removeProductsFromCart(id: string) {
+    const withoutDeletedOne = cartProducts.filter((cartItem) => {
+      return cartItem.id !== id
+    })
+
+    setCartProducts(withoutDeletedOne)
+  }
+
+  function orderAlreadyExist(id: string) {
+    const orderAlreadyExist = cartProducts.some((cartItem) => cartItem.id === id)
+
+    return orderAlreadyExist
+  }
 
   return (
     <CartContext.Provider
       value={{
-        products,
-        createProducts
+        cartProducts,
+        quantity,
+        addProductsToCart,
+        removeProductsFromCart,
+        orderAlreadyExist,
       }}
     >
       {children}
     </CartContext.Provider>
-
   )
 }

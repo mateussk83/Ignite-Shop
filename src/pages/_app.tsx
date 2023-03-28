@@ -3,7 +3,7 @@ import { globalStyles } from '../styles/global';
 
 import { Container } from '../styles/pages/app';
 import { Header } from '../components/Header';
-import { CartProvider } from '../contexts/CartContext';
+import { CartContextProvider } from '../contexts/CartContext';
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -14,11 +14,11 @@ export default function App({ Component, pageProps }: AppProps) {
     <Container>
 
       
+        <CartContextProvider>
         <Header />
-        <CartProvider>
 
       <Component {...pageProps} />
-        </CartProvider>
+        </CartContextProvider>
 
 
     </Container>

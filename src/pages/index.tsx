@@ -10,18 +10,18 @@ import { stripe } from "../lib/stripe";
 import { GetStaticProps } from "next";
 import Stripe from "stripe";
 import { Handbag } from "phosphor-react";
-import { useContext } from "react";
-import { CartContext, IProduct } from "../contexts/CartContext";
 import { useContextSelector } from "use-context-selector";
+import { CartContext, IProduct } from "../contexts/CartContext";
 
 interface HomeProps {
   products: IProduct[];
 }
 
 export default function Home({ products }: HomeProps) {
-  const createProducts = useContextSelector(CartContext, (context) => {
-    return context.createProducts
+  const addProductsToCart  = useContextSelector(CartContext, (context) => {
+    return context.addProductsToCart
   })
+
   
   const [sliderRef] = useKeenSlider({
     slides: {
@@ -60,11 +60,12 @@ export default function Home({ products }: HomeProps) {
                 </div>
                 <button
                   onClick={() => {
-                    createProducts({
-                      idStripe: product.id,
+                    addProductsToCart({
+                      id: product.id,
                       title: product.title,
                       imageUrl: product.imageUrl,
                       price: product.price,
+                      defaultPriceId: product.defaultPriceId
                     });
                   }}
                 >
@@ -91,7 +92,8 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       title: product.name,
       imageUrl: product.images[0],
-      price: price.unit_amount
+      price: price.unit_amount,
+      defaultPriceId: price.id
     };
   });
   return {

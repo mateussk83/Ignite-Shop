@@ -1,16 +1,61 @@
 import * as Dialog from '@radix-ui/react-dialog';
+import axios from 'axios';
 import Image from 'next/image';
 import { X } from 'phosphor-react';
-import { IProduct } from '../contexts/CartContext';
+import { useState } from 'react';
+import { useContextSelector } from 'use-context-selector';
+import { CartContext } from '../contexts/CartContext';
+import { usePrice } from '../hooks/usePrice';
 import { CloseButton, Content, ContentProduct, ImageProduct, OverAll, Overlay, Quantities, Product, Values, Title } from '../styles/components/cartModal';
-import { useContextSelector } from 'use-context-selector'
 
-interface ICartModal {
-    products: IProduct[]
-}
 
-export function CartModal({ products }: ICartModal) {
-  
+
+export function CartModal() {
+    const [ isCreatingCheckoutSession, setIsCreatingCheckoutSession ] = useState(false)
+
+    const cartProducts = useContextSelector(CartContext, (context) => {
+        return context.cartProducts
+    })
+
+    const removeProductsFromCart = useContextSelector(CartContext, (context) => {
+        return context.removeProductsFromCart
+    })
+
+    const quantity = useContextSelector(CartContext, (context) => {
+        return context.quantity
+    })
+
+
+  async function handleBuyProduct() {
+    try {
+      setIsCreatingCheckoutSession(true)
+
+        const productToBuy = cartProducts?.map((product) => {
+            return {
+                price: product.defaultPriceId,
+                quantity: 1
+            }
+        })
+
+      const response = await axios.post('/api/checkout', {
+        priceId: productToBuy
+      })
+
+      const { checkoutUrl } = response.data
+
+
+      window.location.href = checkoutUrl
+    }
+    catch(err) {
+      //conectar com alguma ferramenta de observabilidade (Datadog/ Sent)
+      setIsCreatingCheckoutSession(false)
+
+      alert('Falha ao redirecionar ao checkout!')
+    }
+  }
+
+    const price = usePrice()
+
     return (
         <Dialog.Portal>
             <Overlay>
@@ -18,24 +63,27 @@ export function CartModal({ products }: ICartModal) {
 
                     <Title>Carrinho de Compra</Title>
 
-                    <CloseButton >
+                    <CloseButton>
                         <X size={24} />
                     </CloseButton>
 
 
 
-                    {products?.map((product) => {
+                    {cartProducts?.map((product) => {
                         return (
-                            <Product>
-
-                                <ImageProduct>
+                            <Product key={product.id}>
+                                {console.log(product)}
+                                <ImageProduct src={product.imageUrl} height={101} width={93} alt="" >
 
                                 </ImageProduct>
                                 <ContentProduct>
                                     <span>{product.title}</span>
-                                    <strong>R$ 79,90</strong>
+                                    <strong>{new Intl.NumberFormat("pt-BR", {
+                                        style: "currency",
+                                        currency: "BRL",
+                                    }).format((product.price as number) / 100)}</strong>
 
-                                    <a href="">Remover</a>
+                                    <a onClick={()=> {removeProductsFromCart(product.id)}}>Remover</a>
                                 </ContentProduct>
                             </Product>
                         )
@@ -44,16 +92,19 @@ export function CartModal({ products }: ICartModal) {
                     <OverAll>
                         <Quantities>
                             <span>Quantidade</span>
-                            <span>1 Item</span>
+                            <span>{quantity} Item</span>
 
                         </Quantities>
 
                         <Values>
                             <strong>Valor Total</strong>
-                            <strong>R$ 270,00</strong>
+                            <strong>{new Intl.NumberFormat("pt-BR", {
+                                        style: "currency",
+                                        currency: "BRL",
+                                    }).format((price.total as number) / 100)}</strong>
                         </Values>
 
-                        <button>Finalizar Compra</button>
+                        <button onClick={handleBuyProduct}>Finalizar Compra</button>
 
 
                     </OverAll>
