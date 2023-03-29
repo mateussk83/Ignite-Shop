@@ -71,7 +71,6 @@ export function CartModal() {
                         return (
                             <Product key={product.id}>
                                 <ImageProduct src={product.imageUrl} height={101} width={93} alt="" >
-
                                 </ImageProduct>
                                 <ContentProduct>
                                     <span>{product.title}</span>

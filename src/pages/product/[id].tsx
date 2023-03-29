@@ -4,7 +4,6 @@ import { ImageContainer, ProductContainer, ProductDetails } from "@/src/styles/p
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import Stripe from "stripe";
 import { useContextSelector } from "use-context-selector";
 
@@ -43,7 +42,7 @@ export default function Product({ product }: ProductProps) {
       <ProductContainer>
 
         <ImageContainer>
-          <Image src={product.imageUrl} width={520} height={480} alt="" />
+          <Image src={product.imageUrl} width={520} height={480} alt="" priority={true}/>
         </ImageContainer>
 
         <ProductDetails>
@@ -65,14 +64,11 @@ export default function Product({ product }: ProductProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-
-
   return {
     paths: [
       { params: { id: 'prod_NUgxQGuDuLXh36' } }
     ],
     fallback: true
-
   }
 }
 
