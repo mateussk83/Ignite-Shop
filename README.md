@@ -1,38 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Ignite Shop 2.0
 
-## Getting Started
+## English
 
-First, run the development server:
+### What is the project?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+4º Challenge of Ignite @Rocketseat. It is an E-Commerce project made with Next to improve my development with Next itself (SSR/SSG), Stripe was also used (Stripe is an infrastructure of payment products for the internet) to make the payment of the order creating a route inside the pages, for styling the project Stitches.Js was used, because integrates better with SSR than Styled Components.
+
+### Main technologies
+
+- React
+- Next
+- Stripe
+- Axios
+- Stitches Js
+- Radix UI (Dialog)
+- Keen Slider
+- Phosphor React
+- use-context-selector
+
+### How to use?
+
+After that you create your Stripe account and create yours products, you must creat a .env.local file inside project root and create 3 vars
+
+```.env
+NEXT_URL="http://localhost:3000"
+
+STRIPE_PUBLIC_KEY= Your PK here
+STRIPE_SECRET_KEY= Your SK here
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Português
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### O que é o projeto?
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+4º Desafio do Ignite @Rocketseat. É um projeto de um E-Commerce feito com Next para aprimorar o meu desenvolvimento com o proprio Next (SSR/SSG), também foi utilizado o Stripe (o Stripe é uma infraestrutura de produtos pagamentos para a internet) para realizar o pagamento do pedido criando uma rota dentro de pages, para a estilização do projeto foi usado o Stitches.Js, pois ele integra melhor com o SSR do que o Styled Components.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Principais technologias
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- React
+- Next
+- Stripe
+- Axios
+- Stitches Js
+- Radix UI (Dialog)
+- Keen Slider
+- Phosphor React
 
-## Learn More
+### Como usar?
 
-To learn more about Next.js, take a look at the following resources:
+Depois de criar sua conta na Stripe e criar os seus produtos, você deve criar na raiz do projeto o arquivo .env.local e criar 3 variáveis nele
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```.env
+NEXT_URL="http://localhost:3000"
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+STRIPE_PUBLIC_KEY= Sua PK aqui
+STRIPE_SECRET_KEY= Sua SK aqui
+```
 
-## Deploy on Vercel
+### Project Images
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<div>
+  <img src="/src/assets/cap/1.png" width="1000px" />
+  <img src="/src/assets/cap/2.png" width="1000px" />
+  <img src="/src/assets/cap/4.png" width="1000px" />
+  <img src="/src/assets/cap/3.png" width="1000px" />
+  <img src="/src/assets/cap/5.png" />
+</div>

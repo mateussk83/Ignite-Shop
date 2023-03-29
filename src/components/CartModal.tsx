@@ -70,7 +70,6 @@ export function CartModal() {
                     {cartProducts?.map((product) => {
                         return (
                             <Product key={product.id}>
-                                {console.log(product)}
                                 <ImageProduct src={product.imageUrl} height={101} width={93} alt="" >
 
                                 </ImageProduct>
