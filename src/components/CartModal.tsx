@@ -11,7 +11,7 @@ import { CloseButton, Content, ContentProduct, ImageProduct, OverAll, Overlay, Q
 
 
 export function CartModal() {
-    const [ isCreatingCheckoutSession, setIsCreatingCheckoutSession ] = useState(false)
+    const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
 
     const cartProducts = useContextSelector(CartContext, (context) => {
         return context.cartProducts
@@ -26,33 +26,31 @@ export function CartModal() {
     })
 
 
-  async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true)
+    async function handleBuyProduct() {
+        try {
+            setIsCreatingCheckoutSession(true)
 
-        const productToBuy = cartProducts?.map((product) => {
-            return {
-                price: product.defaultPriceId,
-                quantity: 1
-            }
-        })
+            const productsToBuy = cartProducts.map((product) => {
+                return {
+                    price: product.defaultPriceId,
+                    quantity: 1,
+                }
+            })
 
-      const response = await axios.post('/api/checkout', {
-        priceId: productToBuy
-      })
+            const response = await axios.post('/api/checkout', {
+                itemsToBuy: productsToBuy,
+            })
 
-      const { checkoutUrl } = response.data
+            const { checkoutUrl } = response.data
 
+            window.location.href = checkoutUrl
+        } catch {
+            // O certo seria conectar com uma ferramenta de observalidade (Datadog / Sentry / etc...)
 
-      window.location.href = checkoutUrl
+            setIsCreatingCheckoutSession(false)
+            alert('Falha ao redirecionar ao checkout')
+        }
     }
-    catch(err) {
-      //conectar com alguma ferramenta de observabilidade (Datadog/ Sent)
-      setIsCreatingCheckoutSession(false)
-
-      alert('Falha ao redirecionar ao checkout!')
-    }
-  }
 
     const price = usePrice()
 
@@ -83,7 +81,7 @@ export function CartModal() {
                                         currency: "BRL",
                                     }).format((product.price as number) / 100)}</strong>
 
-                                    <a onClick={()=> {removeProductsFromCart(product.id)}}>Remover</a>
+                                    <a onClick={() => { removeProductsFromCart(product.id) }}>Remover</a>
                                 </ContentProduct>
                             </Product>
                         )
@@ -99,9 +97,9 @@ export function CartModal() {
                         <Values>
                             <strong>Valor Total</strong>
                             <strong>{new Intl.NumberFormat("pt-BR", {
-                                        style: "currency",
-                                        currency: "BRL",
-                                    }).format((price.total as number) / 100)}</strong>
+                                style: "currency",
+                                currency: "BRL",
+                            }).format((price.total as number) / 100)}</strong>
                         </Values>
 
                         <button onClick={handleBuyProduct}>Finalizar Compra</button>

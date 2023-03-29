@@ -6,13 +6,13 @@ export const SuccessContainer = styled('main', {
  display: 'flex',
  flexDirection: "column",
  alignItems: "center",
- justifyContent: "center",
  margin: '0 auto',
  height: 656,
 
  h1: {
   fontSize: '$2xl',
-  color: '$gray100'
+  color: '$gray100',
+  paddingTop: '48px'
  },
  
  p: {
@@ -41,20 +41,25 @@ export const SuccessContainer = styled('main', {
 })
 
 export const ImageContainer = styled('div', {
- width: '100%',
- maxWidth: 130,
- height: 145,
- background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
- borderRadius: 8,
- padding: '0.25rem',
- marginTop: '4rem',
 
- display: "flex",
- alignItems: 'center',
- justifyContent: "center",
+ paddingTop: '5rem',
 
  img: {
-  objectFit: 'cover'
+
+  objectFit: 'cover',
+  width: '100%',
+  maxWidth: 130,
+  height: 132,
+  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
+  borderRadius: 999,
+  padding: '0.25rem',
+ 
+  display: "inline",
+  // "&:hover"
+  '&:nth-child(n + 2)': {
+   marginLeft: '-2rem',
+   boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+  }
  }
 
 
