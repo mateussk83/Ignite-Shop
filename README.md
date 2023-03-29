@@ -61,8 +61,8 @@ STRIPE_SECRET_KEY= Sua SK aqui
 
 <div>
   <img src="/src/assets/cap/1.png" width="1000px" />
+  <img src="/src/assets/cap/5.png" width="1000px" />
   <img src="/src/assets/cap/2.png" width="1000px" />
-  <img src="/src/assets/cap/4.png" width="1000px" />
   <img src="/src/assets/cap/3.png" width="1000px" />
-  <img src="/src/assets/cap/5.png" />
+  <img src="/src/assets/cap/4.png" />
 </div>
