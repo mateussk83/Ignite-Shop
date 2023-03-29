@@ -1,11 +1,12 @@
 import { styled } from "..";
 
-export const HeaderContainer = styled("div", {
+export const Container = styled('div', {  
   width: '100%',
-  maxWidth: '1120px',
-  margin: '0 auto',
-  padding: '2rem 1.5rem',
-
+maxWidth: '1120px',
+margin: '0 auto',
+padding: '3rem 1.5rem',
+})
+export const HeaderContainer = styled("div", {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: "center",
@@ -35,3 +36,10 @@ export const OpenCartButton = styled("button", {
     }
 
 });
+
+export const HeaderContainerSuccess = styled('div', {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  marginBottom: "-4rem"
+}) 

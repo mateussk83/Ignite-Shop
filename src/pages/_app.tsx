@@ -12,15 +12,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <Container>
-
-      
         <CartContextProvider>
         <Header />
-
       <Component {...pageProps} />
         </CartContextProvider>
-
-
     </Container>
   )
 }
