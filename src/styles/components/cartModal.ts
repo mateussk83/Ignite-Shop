@@ -69,8 +69,6 @@ export const ContentProduct = styled("div", {
 
 export const ImageProduct = styled(Image, {
   display: "flex",
-  width: "101px",
-  height: "93px",
   background: "linear-gradient(180deg, #1ea483 0%, #7465d4 100%)",
   border: "none",
   borderRadius: 8,
