@@ -45,6 +45,7 @@ STRIPE_SECRET_KEY= Your SK here
 - Radix UI (Dialog)
 - Keen Slider
 - Phosphor React
+- use-context-selector
 
 ### Como usar?
 
