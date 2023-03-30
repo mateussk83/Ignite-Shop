@@ -43,9 +43,9 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   }
 
   function removeProductsFromCart(id: string) {
-    const withoutDeletedOne = cartProducts.filter((cartItem) => {
-      return cartItem.id !== id
-    })
+    const withoutDeletedOne = cartProducts.filter((cartItem) => (
+      cartItem.id !== id
+      ))
 
     setCartProducts(withoutDeletedOne)
   }
