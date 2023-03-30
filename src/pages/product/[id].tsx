@@ -7,15 +7,17 @@ import Image from "next/image";
 import Stripe from "stripe";
 import { useContextSelector } from "use-context-selector";
 
+interface IProduct {
+  id: string;
+  title: string;
+  imageUrl: string;
+  price: number;
+  description: string
+  defaultPriceId: string
+}
+
 interface ProductProps {
-  product: {
-    id: string;
-    title: string;
-    imageUrl: string;
-    price: number;
-    description: string
-    defaultPriceId: string
-  }
+  product: IProduct
 }
 
 
@@ -26,9 +28,7 @@ export default function Product({ product }: ProductProps) {
 
   function handleAddProductToCart() {
     const addNewProductToCart = { ...product }
-    console.log(addNewProductToCart)
     addProductsToCart(addNewProductToCart)
-
   }
 
 
@@ -36,23 +36,23 @@ export default function Product({ product }: ProductProps) {
     <>
 
       <Head>
-        <title>{product.title} | Ignite Shop</title>
+        <title>{product?.title} | Ignite Shop</title>
       </Head>
 
       <ProductContainer>
 
         <ImageContainer>
-          <Image src={product.imageUrl} width={520} height={480} alt="" priority={true}/>
+          <Image src={product?.imageUrl} width={520} height={480} alt="" priority={true}/>
         </ImageContainer>
 
         <ProductDetails>
-          <h1>{product.title}</h1>
+          <h1>{product?.title}</h1>
           <span>{new Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL",
-          }).format((product.price as number) / 100)}</span>
+          }).format((product?.price as number) / 100)}</span>
 
-          <p>{product.description}</p>
+          <p>{product?.description}</p>
 
           <button onClick={handleAddProductToCart}>
             Adicionar ao Carrinho
