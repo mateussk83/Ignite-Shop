@@ -25,8 +25,8 @@ After that you create your Stripe account and create yours products, you must cr
 ```.env
 NEXT_URL="http://localhost:3000"
 
-STRIPE_PUBLIC_KEY= Your PK here
-STRIPE_SECRET_KEY= Your SK here
+NEXT_STRIPE_PUBLIC_KEY= Your PK here
+NEXT_STRIPE_SECRET_KEY= Your SK here
 ```
 
 ## Português
@@ -54,8 +54,8 @@ Depois de criar sua conta na Stripe e criar os seus produtos, você deve criar n
 ```.env
 NEXT_URL="http://localhost:3000"
 
-STRIPE_PUBLIC_KEY= Sua PK aqui
-STRIPE_SECRET_KEY= Sua SK aqui
+NEXT_STRIPE_PUBLIC_KEY= Sua PK aqui
+NEXT_STRIPE_SECRET_KEY= Sua SK aqui
 ```
 
 ### Project Images
