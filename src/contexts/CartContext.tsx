@@ -1,10 +1,9 @@
 import { ReactNode, useState } from 'react'
 import { createContext } from 'use-context-selector'
-import { usePrice } from '../hooks/usePrice'
 
 
 interface CartContextProviderProps {
-  children: ReactNode
+  children: ReactNode[]
 }
 
 export interface IProduct {
