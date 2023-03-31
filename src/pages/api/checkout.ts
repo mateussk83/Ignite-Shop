@@ -15,8 +15,9 @@ export default async function handler(
     return res.status(400).json({ error: 'Items not found' })
   }
 
-  const successUrl = `${process.env.URL_LOCAL}/success?session_id={CHECKOUT_SESSION_ID}`
-  const cancelUrl = `${process.env.URL_LOCAL}/`
+  const successUrl = `https://ignite-shop-ptdphotap-mateussk83.vercel.app//success?session_id={CHECKOUT_SESSION_ID}`
+  const cancelUrl = `https://ignite-shop-ptdphotap-mateussk83.vercel.app//`
+  console.log(successUrl)
 
   const checkoutSession = await stripe.checkout.sessions.create({
     success_url: successUrl,
