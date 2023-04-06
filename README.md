@@ -6,7 +6,7 @@
 
 4º Challenge of Ignite @Rocketseat. It is an E-Commerce project made with Next to improve my development with Next itself (SSR/SSG), Stripe was also used (Stripe is an infrastructure of payment products for the internet) to make the payment of the order creating a route inside the pages, for styling the project Stitches.Js was used, because integrates better with SSR than Styled Components.
 
-## Link for the WebSite
+### Link for the WebSite
 
 https://ignite-shop-ochre-nine.vercel.app/
 
@@ -59,7 +59,7 @@ NEXT_STRIPE_SECRET_KEY= Your SK here
 - Phosphor React
 - use-context-selector
 
-## Link para o WebSite
+### Link para o WebSite
 
 https://ignite-shop-ochre-nine.vercel.app/
 
