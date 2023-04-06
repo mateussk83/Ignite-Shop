@@ -6,6 +6,10 @@
 
 4º Challenge of Ignite @Rocketseat. It is an E-Commerce project made with Next to improve my development with Next itself (SSR/SSG), Stripe was also used (Stripe is an infrastructure of payment products for the internet) to make the payment of the order creating a route inside the pages, for styling the project Stitches.Js was used, because integrates better with SSR than Styled Components.
 
+## Link for the WebSite
+
+https://ignite-shop-ochre-nine.vercel.app/
+
 ### Main technologies
 
 - React
@@ -22,12 +26,20 @@
 
 After that you create your Stripe account and create yours products, you must creat a .env.local file inside project root and create 3 vars
 
+```checkout.ts
+NEXT_URL="http://localhost:3000"
+
+NEXT_STRIPE_PUBLIC_KEY= Your PK here
+NEXT_STRIPE_SECRET_KEY= Your SK here
+```
+
 ```.env
 NEXT_URL="http://localhost:3000"
 
 NEXT_STRIPE_PUBLIC_KEY= Your PK here
 NEXT_STRIPE_SECRET_KEY= Your SK here
 ```
+
 
 ## Português
 
@@ -46,6 +58,10 @@ NEXT_STRIPE_SECRET_KEY= Your SK here
 - Keen Slider
 - Phosphor React
 - use-context-selector
+
+## Link para o WebSite
+
+https://ignite-shop-ochre-nine.vercel.app/
 
 ### Como usar?
 
